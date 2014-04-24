@@ -1,0 +1,39 @@
+<div class="modal">
+        <ion-header-bar class="bar bar-header bar-balanced">
+          <h1 class="title">REFER SOMEONE</h1>
+          <button class="button button-clear button-primary" ng-click="modalRefer.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content>
+        <div class="content">
+            <form ng-submit="submitRefer()" >
+            <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Your Name" ng-model="referFormData.YName">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="Your Email" ng-model="referFormData.YEmail">
+            </label>
+           <ul class="list">
+            <li class="item item-checkbox ">
+               <label class="checkbox checkbox-balanced">
+                 <input type="checkbox" checked="true" ng-model="referFormData.chkSignUp">
+               </label>
+               Sign up for New Jobs Email (we will not sign up your friend)
+            </li>
+           </ul>
+            <label class="item item-input">
+                <input type="text" placeholder="Your Friend's Name" ng-model="referFormData.FName">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="Your Friend's Email" ng-model="referFormData.FEmail">
+            </label>
+            </div>
+            <div class="padding">
+            <input type="submit" class="button button-block button-balanced" />
+            </div>
+            </form>
+
+        </div>
+        </ion-content>
+      </div>
+  

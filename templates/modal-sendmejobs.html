@@ -1,0 +1,23 @@
+<div class="modal">
+    <ion-header-bar class="bar bar-header bar-balanced">
+        <h1 class="title">SEND ME NEW JOBS</h1>
+        <button class="button button-clear button-primary" ng-click="modalSMNJ.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="content">
+            <form ng-submit="submitSMNJ()">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="text" placeholder="Your Name" ng-model="smnjFormData.YName">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Your Email" ng-model="smnjFormData.YEmail">
+                </label>
+            </div>
+            <div class="padding">
+                <input type="submit" class="button button-block button-balanced"/>
+            </div>
+            </form>
+        </div>
+    </ion-content>
+</div>

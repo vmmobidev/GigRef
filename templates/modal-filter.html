@@ -1,0 +1,29 @@
+<div class="modal">
+    <ion-header-bar class="bar bar-header bar-balanced">
+        <h1 class="title">Filter Jobs</h1>
+        <button class="button button-dark" ng-click="filterJobs()">Apply</button>
+        <button class="button button-clear button-primary" ng-click="modalFilter.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content has-header="true" has-subheader="true" padding>
+        <div class="item item-divider">Locations</div>
+        <ul class="list">
+          <li class="item item-checkbox" ng-repeat="loc in locations">
+             <label class="checkbox checkbox-balanced">
+               <input type="checkbox" ng-model="isChecked" ng-change="changedLocChk(loc)">
+             </label>
+              {{loc.name}}
+          </li>
+        </ul>
+
+        <div class="item item-divider">Languages</div>
+        <ul class="list">
+            <li class="item item-checkbox" ng-repeat="lang in languages">
+                <label class="checkbox checkbox-balanced">
+                    <input type="checkbox" ng-model="isChecked" ng-change="changedLangChk(lang)">
+                </label>
+                {{lang.name}}
+            </li>
+        </ul>
+
+    </ion-content>
+</div>

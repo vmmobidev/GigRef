@@ -1,0 +1,19 @@
+<ion-view title="FAQ">
+    <ion-nav-buttons side="left">
+        <img src="img/logo.png" style="padding-top:8px;height:30px;">
+        <button class="button button-icon icon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content has-header="true" padding="true">
+        <div class="list">
+            <div ng-repeat="data in faq">
+                <div class="item">
+                    <div class="item-text-wrap"><strong>{{data.Question }}</strong></div>
+                    <div class="item-text-wrap">{{data.Answer }}</div>
+                 </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
