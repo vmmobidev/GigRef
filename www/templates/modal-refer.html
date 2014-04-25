@@ -5,13 +5,13 @@
         </ion-header-bar>
         <ion-content>
         <div class="content">
-            <form ng-submit="submitRefer()" >
+            <form ng-submit="submitRefer()" name="mymodalReferForm">
             <div class="list list-inset">
             <label class="item item-input">
-                <input type="text" placeholder="Your Name" ng-model="referFormData.YName">
+                <input type="text" placeholder="Your Name" name="YourName" ng-model="referFormData.YName" required>
             </label>
             <label class="item item-input">
-                <input type="text" placeholder="Your Email" ng-model="referFormData.YEmail">
+                <input type="email" placeholder="Your Email" name="YourEmail" ng-model="referFormData.YEmail" required>
             </label>
            <ul class="list">
             <li class="item item-checkbox ">
@@ -22,10 +22,10 @@
             </li>
            </ul>
             <label class="item item-input">
-                <input type="text" placeholder="Your Friend's Name" ng-model="referFormData.FName">
+                <input type="text" placeholder="Your Friend's Name" name="YourFriendName" ng-model="referFormData.FName" required>
             </label>
             <label class="item item-input">
-                <input type="text" placeholder="Your Friend's Email" ng-model="referFormData.FEmail">
+                <input type="email" placeholder="Your Friend's Email" name="YourFriendEmail" ng-model="referFormData.FEmail" required>
             </label>
             </div>
             <div class="padding">

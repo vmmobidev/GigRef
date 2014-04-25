@@ -71,23 +71,32 @@ angular.module('GigRef.controllers', [])
 
 .controller('JobListController', function ($scope, $ionicSideMenuDelegate, $ionicModal, $ionicLoading, JobService) {
     //var loc = null;
-    var findAllJobs = function () {
+    var findAllJobs = function () { /*Function to find all the jobs on a page(10 jobs per page by default)*/
         console.log("Retrieving Jobs");
-        $scope.show();
+        $scope.show();/*Show loading mask*/
         localStorage.clear();
-        JobService.findAll().then(function (res) {
+        /*Call the method to fetch jobs data from server*/
+        JobService.findAll($scope.fetchJobsPageNumber).then(function (res) {
             var backcolor = { "Novice": "gray", "Intermediate": "blue", "Advanced": "green" }
             var fontcolor = { "Novice": "69952d", "Intermediate": "a3830b", "Advanced": "9e3f3c" }
             angular.forEach(res.jobs, function (value, key) {
-                res.jobs[key].backcolor = backcolor[value.category]
-                res.jobs[key].fontcolor = fontcolor[value.category]
+                res.jobs[key].backcolor = backcolor[value.category];
+                res.jobs[key].fontcolor = fontcolor[value.category];
                 //console.log("Key = ["  + key +  "] , category = [" + value.category + "]")
             });
-            $scope.hide();
+            $scope.hide();/*Hide loading mask*/
             $scope.items = res.jobs.length;
+            $scope.totalPagesOnServer = res.total_pages;/*update the total number of pages from server*/
             // Used with pull-to-refresh
             $scope.$broadcast('scroll.refreshComplete');
-            $scope.jobs = res.jobs
+            if($scope.fetchJobsPageNumber == 1){ /*If this data was fetched for the first time/first page */
+                $scope.jobs = res.jobs; /*set the data to be shown in the list*/
+            }
+            else{ /*Data is coming as a result of pull to refresh*/
+                angular.forEach(res.jobs,function(item, index){ /*Append new data to the list*/
+                    $scope.jobs.push(item);
+                })
+            }
         });
 
         JobService.getLanguageLocation().then(function (res) {
@@ -101,9 +110,9 @@ angular.module('GigRef.controllers', [])
     }
 
 
-    $scope.toggleLeft = function () {
+    $scope.toggleMenu = function () {
         console.log("toggleLeft");
-        $ionicSideMenuDelegate.toggleLeft();
+        $ionicSideMenuDelegate.toggleRight();
     };
 
     //pull to refresh
@@ -200,7 +209,11 @@ angular.module('GigRef.controllers', [])
         });
     }
 
-    $scope.doRefresh = findAllJobs;
+    $scope.doRefresh = function(){ /*This function is called when page is pulled down(pull to refresh)*/
+        $scope.fetchJobsPageNumber += 1; /*Increase the page count by 1. This will fetch the next page from server and add it to the list*/
+        if($scope.fetchJobsPageNumber <= $scope.totalPagesOnServer)/*if current page number is below or equal to total pages available on server*/
+            findAllJobs();
+    };
     //pull to refresh end
     if ($scope.$navDirection != null) {
         if ((localStorage.getItem('Languages') != null) || (localStorage.getItem('Locations' != null))) {
@@ -233,16 +246,18 @@ angular.module('GigRef.controllers', [])
             });
         }
         else {
+            $scope.fetchJobsPageNumber = 1;/*set the page to be fetched as the first page(first 10 records)*/
             findAllJobs();
         }
     }
     else {
+        $scope.fetchJobsPageNumber = 1; /*set the page to be fetched as the first page(first 10 records)*/
         findAllJobs();
     }
 
 }) //End of contoller
 
- .controller('JobDetailsController', function ($scope, $stateParams, $ionicModal, $ionicLoading, JobService,JobDetailService,$ionicPopup) {
+ .controller('JobDetailsController', function ($scope, $stateParams, $ionicModal, $ionicLoading, JobService,JobDetailService, $ionicPopup, $ionicSideMenuDelegate) {
      $scope.referFormData = {}; /*create an object to hold the form data from refer modal*/
 
      var findJobById = function (id) {
@@ -257,6 +272,10 @@ angular.module('GigRef.controllers', [])
          });
      }
 
+     $scope.hideApplyModal = function () {
+         $scope.modalApply.hide();
+     }
+
      $scope.submitRefer = function(){
          $scope.showReferLoader();
         JobDetailService.referFriend($scope.referFormData,$stateParams.jobId).then(function(res){
@@ -269,7 +288,10 @@ angular.module('GigRef.controllers', [])
         });
      }
 
-
+        $scope.toggleMenu = function () {
+            console.log("toggleLeft");
+            $ionicSideMenuDelegate.toggleRight();
+        };
 
      $scope.ShowModalRefer = function () {
          $scope.modalRefer.show();
@@ -313,13 +335,17 @@ angular.module('GigRef.controllers', [])
         $scope.referSending.hide();
     };
      findJobById($stateParams.jobId);
-
-
  })
 
-.controller('HowItWorksController', function ($scope, $ionicModal, $http) {
-    $http.get('js/faq.js')
-       .then(function (res) {
-           $scope.faq = res.data;
+
+ .controller('HowItWorksController', function ($scope,$http, $ionicModal, $ionicSideMenuDelegate) {
+        $http.get('js/faq.js')
+            .then(function (res) {
+            $scope.faq = res.data;
        });
-})
+        $scope.toggleMenu = function () {
+            console.log("toggleLeft");
+            $ionicSideMenuDelegate.toggleRight();
+        };
+    })
+

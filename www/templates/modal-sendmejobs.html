@@ -5,13 +5,13 @@
     </ion-header-bar>
     <ion-content>
         <div class="content">
-            <form ng-submit="submitSMNJ()">
+            <form ng-submit="submitSMNJ()"  name="mymodalsendmejobsForm">
             <div class="list list-inset">
                 <label class="item item-input">
-                    <input type="text" placeholder="Your Name" ng-model="smnjFormData.YName">
+                    <input type="text" placeholder="Your Name" name="YourName" ng-model="smnjFormData.YName" required>
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="Your Email" ng-model="smnjFormData.YEmail">
+                    <input type="email" placeholder="Your Email" name="YourEmail" ng-model="smnjFormData.YEmail" required>
                 </label>
             </div>
             <div class="padding">

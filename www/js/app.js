@@ -1,4 +1,4 @@
-angular.module('GigRef', ['ionic', 'GigRef.services', 'GigRef.controllers'])
+angular.module('GigRef', ['ionic', 'GigRef.services', 'GigRef.controllers', 'ngSanitize'])
 
     .run(function ($rootScope, $state, $ionicPlatform, $window) {
         console.log("run>>");

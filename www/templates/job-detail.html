@@ -4,18 +4,18 @@
         <button class="button button-icon icon"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">        
-        <button class="button button-icon icon ion-navicon"></button>
+        <button class="button button-icon icon ion-navicon" ng-click="toggleMenu()"></button>
     </ion-nav-buttons>    
 <ion-content has-header="true" padding="true"> 
      <div><p>&nbsp;</p></div>
      <div class="list card">
         <div class="item item-thumbnail-left">
             <div class="square {{job.backcolor}}" style="position:absolute;top:10px;left:10px;">${{job.referral_fee | number:0}}</br>REFERRAL </br>FEE</div>
-            <h2>{{job.synopsis}}</h2>
+            <h2>{{job.location}} - {{job.job_title}}</h2>
             <p>{{job.synopsis}}</p>
         </div>
         <div class="item item-body">
-            <p> {{job.description}} </p>
+            <p class="htmlComment" ng-bind-html="job.description"></p>
         </div>
 <div class="row">
   <div class="col col-100"><button class="button button-balanced button-block" ng-click="ShowModalRefer()">REFER SOMEONE</button></div>

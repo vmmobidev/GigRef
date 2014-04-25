@@ -5,7 +5,7 @@
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-small button-positive" ng-click="ShowModalFilter()">FILTER</button>     
-        <button class="button button-icon icon ion-navicon"></button>
+        <button ng-click="toggleMenu()" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>    
     <ion-content has-header="true" has-subheader="true" padding>
          <ion-refresher
@@ -15,7 +15,7 @@
         <div class="list"> 
             <a class="item item-thumbnail-left" ng-repeat="job in jobs" href="#/app/job/{{job.id}}">
                 <div class="square {{job.backcolor}}" style="position:absolute;top:10px;left:10px;">${{job.referral_fee | number:0}}</br>REFERRAL </br>FEE</div>
-                <h2>{{job.job_title }}</h2>
+                <h2>{{job.location_name }} - {{job.job_title }}</h2>
                 <p>{{job.synopsis}}</p>
             </a>
         </div>

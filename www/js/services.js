@@ -2,9 +2,9 @@ angular.module('GigRef.services', [])
 
     .factory('JobService', function($http, $q, $log) {
         return {
-            findAll: function () {
+            findAll: function (pageNumber) {
                 var deferred = $q.defer(); //promise
-                $http({ method: 'GET', url: 'http://shawn-vmoksha.spritle.com/filter_jobs?languages=&locations=&page=1' }).
+                $http({ method: 'GET', url: 'http://shawn-vmoksha.spritle.com/filter_jobs?languages=&locations=&page=' + pageNumber }).
             success(function (data, status, headers, config) {
                 deferred.resolve(data);
                 //$log.info(data, status, headers, config);
